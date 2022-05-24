@@ -21,11 +21,8 @@ import { JwtAuthGuard } from './../../auth/guard/jwt.guard';
 export class UserController {
   constructor(private readonly service: RepoService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get('/helf-check')
-  async helfCheck(@Request() req): Promise<string> {
-    console.log(req.user);
-
+  async helfCheck(@Request() req): Promise<string> { 
     return 'The api is on';
   }
 
