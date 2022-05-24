@@ -1,10 +1,23 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { CategoryModule } from './app/modules/category.module';
+import { EntryModule } from './app/modules/entry.module';
+import GoalModule from './app/modules/goal.module';
+import UserModule from './app/modules/user.module';
+import { AuthModule } from './auth/auth.module';
+import * as ormOptions from './config/orm';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    TypeOrmModule.forRoot(ormOptions),
+    AuthModule,
+    UserModule,
+    EntryModule,
+    CategoryModule,
+    GoalModule,
+  ],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
