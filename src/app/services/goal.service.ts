@@ -64,8 +64,6 @@ export class GoalService {
 
       const goal: Goal = await this.goalRepository.save(newGoal);
 
-      console.log(goal);
-
       return new ResponseDTO('Created', goal, 201, true);
     } catch (exception) {
       throw new InternalServerErrorException(

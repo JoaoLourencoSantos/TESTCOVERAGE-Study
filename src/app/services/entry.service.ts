@@ -124,7 +124,6 @@ export class EntryService {
 
   async create(entryDTO: EntryDTO): Promise<ResponseDTO> {
     try {
-      console.log('QUI');
       const newEntry = new Entry();
       newEntry.name = entryDTO.name;
       newEntry.value = Number(entryDTO.value);
@@ -170,8 +169,6 @@ export class EntryService {
     if (!id) {
       throw new BadRequestException("Parameter 'id' is necessary!");
     }
-
-    console.log('aqui' + id);
 
     try {
       return new ResponseDTO(

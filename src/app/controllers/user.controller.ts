@@ -1,30 +1,13 @@
-import { UserPutDTO } from './../dto/user.put.dto';
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Put,
-  Request,
-  UseGuards,
-  ValidationPipe,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, ValidationPipe } from '@nestjs/common';
 
 import { ResponseDTO } from '../dto/response.dto';
 import { UserDTO } from '../dto/user.dto';
 import RepoService from '../services/user.service';
-import { JwtAuthGuard } from './../../auth/guard/jwt.guard';
+import { UserPutDTO } from './../dto/user.put.dto';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly service: RepoService) {}
-
-  @Get('/helf-check')
-  async helfCheck(@Request() req): Promise<string> {
-    return 'The api is on';
-  }
 
   @Get()
   async findAll(): Promise<ResponseDTO> {

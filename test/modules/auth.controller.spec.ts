@@ -22,7 +22,7 @@ describe('AuthController (e2e)', () => {
     await app.close();
   });
 
-  it('Test Auth Controller', async () => {
+  it('Fail Case', async () => {
     const user: any = { username: 'admin1@gmail.com', password: '12345678' };
     const response = await request(app.getHttpServer())
       .post('/auth/login')
@@ -30,11 +30,19 @@ describe('AuthController (e2e)', () => {
     expect(response.status).toBe(HttpStatus.UNAUTHORIZED);
   });
 
-  it('Test Auth Controller', async () => {
+  it('Success Case', async () => {
     const user: any = { username: 'admin@gmail.com', password: '12345678' };
     const response = await request(app.getHttpServer())
       .post('/auth/login')
       .send(user);
     expect(response.status).toBe(HttpStatus.OK);
+  });
+
+  it('BadRequest Case', async () => {
+    const user: any = { username: 'admin@gmail.com', password: '' };
+    const response = await request(app.getHttpServer())
+      .post('/auth/login')
+      .send(user);
+    expect(response.status).toBe(HttpStatus.BAD_REQUEST);
   });
 });

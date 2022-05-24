@@ -1,15 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Put,
-  Query,
-  Request,
-  ValidationPipe,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, ValidationPipe } from '@nestjs/common';
 
 import { EntryDTO } from './../dto/entry.dto';
 import { ResponseDTO } from './../dto/response.dto';
@@ -18,13 +7,6 @@ import { EntryService } from './../services/entry.service';
 @Controller('entry')
 export class EntryController {
   constructor(private readonly service: EntryService) {}
-
-  @Get('/helf-check')
-  async helfCheck(@Request() req): Promise<string> {
-    console.log(req.user);
-
-    return 'The api is on';
-  }
 
   @Get()
   async findAll(@Query() query): Promise<ResponseDTO> {

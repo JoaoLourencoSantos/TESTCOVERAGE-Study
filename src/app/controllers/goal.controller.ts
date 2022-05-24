@@ -19,13 +19,6 @@ import { GoalService } from './../services/goal.service';
 export class GoalController {
   constructor(private readonly service: GoalService) {}
 
-  @Get('/helf-check')
-  async helfCheck(@Request() req): Promise<string> {
-    console.log(req.user);
-
-    return 'The api is on';
-  }
-
   @Get()
   async findAll(@Query() query): Promise<ResponseDTO> {
     return this.service.findAll();
@@ -38,7 +31,6 @@ export class GoalController {
 
   @Post()
   async create(@Body(ValidationPipe) goalDTO: GoalDTO): Promise<ResponseDTO> {
-    console.log('aqui');
     return this.service.create(goalDTO);
   }
 

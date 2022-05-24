@@ -71,9 +71,7 @@ export class CategoryService {
 
       const category: Category = await this.categoryRepository.save(
         newCategory,
-      );
-
-      console.log(category);
+      ); 
 
       return new ResponseDTO('Created', category, 201, true);
     } catch (exception) {

@@ -124,8 +124,6 @@ class UserService {
   async auth(email: string, virtualPass: string): Promise<any> {
     const user = await this.userReporitory.findOne({ email });
 
-    console.log(user);
-
     if (user && (await this.comparePassword(user.password, virtualPass))) {
       const { password, ...result } = user;
 

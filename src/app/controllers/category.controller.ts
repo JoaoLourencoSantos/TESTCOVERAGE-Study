@@ -7,7 +7,6 @@ import {
   Post,
   Put,
   Query,
-  Request,
   ValidationPipe,
 } from '@nestjs/common';
 
@@ -18,13 +17,6 @@ import { CategoryService } from './../services/category.service';
 @Controller('category')
 export class CategoryController {
   constructor(private readonly service: CategoryService) {}
-
-  @Get('/helf-check')
-  async helfCheck(@Request() req): Promise<string> {
-    console.log(req.user);
-
-    return 'The api is on';
-  }
 
   @Get()
   async findAll(@Query() query): Promise<ResponseDTO> {
@@ -40,7 +32,6 @@ export class CategoryController {
   async create(
     @Body(ValidationPipe) category: CategoryDTO,
   ): Promise<ResponseDTO> {
-    console.log('aqui');
     return this.service.create(category);
   }
 
