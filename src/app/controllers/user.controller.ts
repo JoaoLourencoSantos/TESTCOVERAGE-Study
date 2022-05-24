@@ -22,7 +22,7 @@ export class UserController {
   constructor(private readonly service: RepoService) {}
 
   @Get('/helf-check')
-  async helfCheck(@Request() req): Promise<string> { 
+  async helfCheck(@Request() req): Promise<string> {
     return 'The api is on';
   }
 
