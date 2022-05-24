@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { HealthController } from './app/controllers/health.controller';
 import { CategoryModule } from './app/modules/category.module';
 import { EntryModule } from './app/modules/entry.module';
 import GoalModule from './app/modules/goal.module';
@@ -17,7 +18,7 @@ import * as ormOptions from './config/orm';
     CategoryModule,
     GoalModule,
   ],
-  controllers: [],
+  controllers: [HealthController],
   providers: [],
 })
 export class AppModule {}

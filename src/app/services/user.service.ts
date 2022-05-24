@@ -7,17 +7,18 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
+import { Repository } from 'typeorm';
 
 import User from '../models/user';
 import { ResponseDTO } from './../dto/response.dto';
 import { UserDTO } from './../dto/user.dto';
 import { UserPutDTO } from './../dto/user.put.dto';
-import { UserRepository } from './../repositories/user.repository';
 
 @Injectable()
 class UserService {
   public constructor(
-    @InjectRepository(User) public readonly userReporitory: UserRepository,
+    @InjectRepository(User)
+    public readonly userReporitory: Repository<User>,
   ) {}
 
   async findAll(): Promise<ResponseDTO> {
@@ -68,7 +69,13 @@ class UserService {
     }
 
     try {
-      const user: User = await this.userReporitory.createUser(userDTO);
+      const entity = new User();
+      entity.email = userDTO.email;
+      entity.name = userDTO.name;
+      entity.dateBirth = userDTO.dateBirth;
+      entity.password = await this.hashPassword(userDTO.password, 10);
+
+      const user: User = await this.userReporitory.save(entity);
 
       return new ResponseDTO('Created', user, 201, true);
     } catch (exception) {
@@ -90,7 +97,16 @@ class UserService {
     }
 
     try {
-      const user: User = await this.userReporitory.updateUser(userPutDTO);
+      const entity = new User();
+      entity.id = userPutDTO.id;
+      entity.name = userPutDTO.name;
+      entity.dateBirth = userPutDTO.dateBirth;
+
+      if (userPutDTO.email) {
+        entity.email = userPutDTO.email;
+      }
+
+      const user: User = await this.userReporitory.save(entity);
 
       return new ResponseDTO(
         'Updated',
@@ -143,6 +159,10 @@ class UserService {
     virtualPass: string,
   ): Promise<boolean> {
     return await bcrypt.compare(virtualPass, password);
+  }
+
+  private async hashPassword(password: string, salt: number): Promise<string> {
+    return bcrypt.hash(password, salt);
   }
 }
 

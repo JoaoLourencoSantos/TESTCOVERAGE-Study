@@ -8,7 +8,6 @@ import User from 'src/app/models/user';
 export class LocalStrategy extends PassportStrategy(Strategy) {
   constructor(private readonly authService: AuthService) {
     super();
-    console.log('AQUI');
   }
 
   async validate(username: string, password: string): Promise<any> {
