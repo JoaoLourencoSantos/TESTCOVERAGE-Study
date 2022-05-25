@@ -53,8 +53,8 @@ describe('GoalController (e2e)', () => {
 
   it('Success DELETE Case', async () => {
     const response = await request(app.getHttpServer())
-      .delete('/house');
-    expect(response.status).toBe(HttpStatus.NOT_FOUND);
+      .delete('/goal/house');
+    expect(response.status).toBe(HttpStatus.OK);
   });
 
 });
