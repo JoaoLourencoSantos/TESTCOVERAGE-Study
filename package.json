@@ -86,7 +86,8 @@
     "modulePathIgnorePatterns": [
       "./dist",
       "./node_modules",
-      "./coverage"
+      "./coverage",
+      "./src/main.ts"
     ]
   }
 }
