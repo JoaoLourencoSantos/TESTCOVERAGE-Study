@@ -18,7 +18,7 @@ export class EntryService {
     @InjectRepository(Entry) public readonly entryRepository: Repository<Entry>,
     @InjectRepository(Entry)
     public readonly categoryRepository: Repository<Category>,
-  ) {}
+  ) { }
 
   async findAll({ type, month }): Promise<ResponseDTO> {
     try {
@@ -70,10 +70,10 @@ export class EntryService {
     }
 
     if (!result) {
-      throw new NotFoundException('user not found');
+      throw new NotFoundException('entry not found');
     }
 
-    return new ResponseDTO('Found users', result, 200, true);
+    return new ResponseDTO('Found entry', result, 200, true);
   }
 
   async findIndicators({ month }): Promise<ResponseDTO> {

@@ -5,7 +5,7 @@ import {
   BadRequestException,
   InternalServerErrorException,
   NotFoundException,
-} from '@nestjs/common';
+} from '@nestjs/common/exceptions';
 
 describe('Category Service Test', () => {
   const categoryRepository = new Repository<Category>();

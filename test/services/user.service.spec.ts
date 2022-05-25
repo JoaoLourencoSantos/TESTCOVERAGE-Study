@@ -81,16 +81,14 @@ describe('Category Service Test', () => {
   });
 
   it('Deve chamar a função save do repository passando a categoria ao chamar a funçao create', async () => {
-    const saveSpy = jest
-      .spyOn(categoryRepository, 'findOne')
-      .mockResolvedValue(mockCategory);
+    jest.spyOn(categoryRepository, 'findOne').mockResolvedValue(mockCategory);
     const userDTO = new User();
 
     try {
-        await categoryService.create(userDTO);
-      } catch (error) {
-        expect(error).toBeInstanceOf(ConflictException);
-      }
+      await categoryService.create(userDTO);
+    } catch (error) {
+      expect(error).toBeInstanceOf(ConflictException);
+    }
   });
 
   it('Deve retornar um erro caso a funçao create falhe', async () => {
@@ -108,16 +106,14 @@ describe('Category Service Test', () => {
   });
 
   it('Deve retornar erro de conflito ao chamar a funcao de update', async () => {
-    const saveSpy = jest
-      .spyOn(categoryRepository, 'findOne')
-      .mockResolvedValue(mockCategory);
+    jest.spyOn(categoryRepository, 'findOne').mockResolvedValue(mockCategory);
     const userDTO = new User();
 
     try {
-        await categoryService.update(userDTO);
-      } catch (error) {
-        expect(error).toBeInstanceOf(ConflictException);
-      }
+      await categoryService.update(userDTO);
+    } catch (error) {
+      expect(error).toBeInstanceOf(ConflictException);
+    }
   });
 
   it('Deve retornar um erro caso a funçao create falhe', async () => {

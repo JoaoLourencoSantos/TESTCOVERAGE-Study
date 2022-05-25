@@ -30,6 +30,7 @@ describe('Goal Service Test', () => {
     const findSpy = jest
       .spyOn(goalRepository, 'find')
       .mockResolvedValue(mockListGoal);
+
     await goalService.findAll();
 
     expect(findSpy).toHaveBeenCalledWith();
@@ -112,6 +113,7 @@ describe('Goal Service Test', () => {
     goalRepository.save = jest.fn().mockRejectedValue(() => {
       throw new Error('Error');
     });
+
     try {
       await goalService.create(mockGoalDTO);
     } catch (error) {
