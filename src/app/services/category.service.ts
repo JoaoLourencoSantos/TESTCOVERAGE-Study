@@ -16,7 +16,7 @@ export class CategoryService {
   public constructor(
     @InjectRepository(Category)
     public readonly categoryRepository: Repository<Category>,
-  ) {}
+  ) { }
 
   async findAll({ type }): Promise<ResponseDTO> {
     try {
@@ -37,7 +37,7 @@ export class CategoryService {
       );
     } catch (exception) {
       throw new InternalServerErrorException(
-        'Erro in find users: ' + exception.message,
+        'Erro in find categories: ' + exception.message,
       );
     }
   }
@@ -57,10 +57,10 @@ export class CategoryService {
     }
 
     if (!result) {
-      throw new NotFoundException('user not found');
+      throw new NotFoundException('category not found');
     }
 
-    return new ResponseDTO('Found users', result, 200, true);
+    return new ResponseDTO('Found categories', result, 200, true);
   }
 
   async create(entryDTO: CategoryDTO): Promise<ResponseDTO> {
@@ -71,12 +71,12 @@ export class CategoryService {
 
       const category: Category = await this.categoryRepository.save(
         newCategory,
-      ); 
+      );
 
       return new ResponseDTO('Created', category, 201, true);
     } catch (exception) {
       throw new InternalServerErrorException(
-        'Erro in create user: ' + exception.message,
+        'Erro in create category: ' + exception.message,
       );
     }
   }
