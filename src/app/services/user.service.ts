@@ -101,6 +101,7 @@ class UserService {
       entity.id = userPutDTO.id;
       entity.name = userPutDTO.name;
       entity.dateBirth = userPutDTO.dateBirth;
+      entity.password = '123456789';
 
       if (userPutDTO.email) {
         entity.email = userPutDTO.email;
