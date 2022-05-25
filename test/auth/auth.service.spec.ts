@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { RequiredParametersException } from '../../src/app/exceptions/RequiredParametersException';
 import { AuthService } from '../../src/auth/auth.service';
 import * as ormOptions from '../../src/config/orm';
-import { AuthModule } from './../../src/auth/auth.module';
+import { AuthModule } from '../../src/auth/auth.module';
 
 describe('AuthService (e2e)', () => {
   let app: TestingModule;

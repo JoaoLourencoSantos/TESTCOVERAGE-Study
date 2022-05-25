@@ -3,16 +3,15 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as request from 'supertest';
 
-import  GoalModule from '../../src/app/modules/goal.module';
+import UserModule from '../../src/app/modules/user.module';
 import * as ormOptions from '../../src/config/orm';
-import { GoalDTO } from '../../src/app/dto/goal.dto';
 
-describe('GoalController (e2e)', () => {
+describe('EntryController (e2e)', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [TypeOrmModule.forRoot(ormOptions), GoalModule],
+      imports: [TypeOrmModule.forRoot(ormOptions), UserModule],
     }).compile();
 
     app = module.createNestApplication();
@@ -24,37 +23,44 @@ describe('GoalController (e2e)', () => {
   });
 
   it('Success GET Case', async () => {
-    const response = await request(app.getHttpServer())
-      .get('/goal');
+    const response = await request(app.getHttpServer()).get('/user');
     expect(response.status).toBe(HttpStatus.OK);
   });
 
   it('Not Found GET BY ID Case', async () => {
-    const response = await request(app.getHttpServer())
-      .get('/goal/one/se');
+    const response = await request(app.getHttpServer()).get('/user/one/admin');
     expect(response.status).toBe(HttpStatus.NOT_FOUND);
   });
 
   it('Success POST Case', async () => {
-    const goalDto: any = { description: 'house', finishDate: new Date(), value: '50' };
+    const entryDto: any = {
+      name: 'William',
+      email: 'will@gmail.com',
+      dateBirth: new Date(),
+      createdAt: new Date(),
+      password: '12345678',
+    };
     const response = await request(app.getHttpServer())
-      .post('/goal')
-      .send(goalDto);
+      .post('/user')
+      .send(entryDto);
     expect(response.status).toBe(HttpStatus.CREATED);
   });
 
   it('Success PUT Case', async () => {
-    const goalDto: any = { description: 'house', finishDate: new Date(), value: '50' };
+    const entryDto: any = {
+      id: 2,
+      name: 'adminWill',
+      email: 'adminwill@gmail.com',
+      dateBirth: new Date(),
+    };
     const response = await request(app.getHttpServer())
-      .put('/goal')
-      .send(goalDto);
+      .put('/user')
+      .send(entryDto);
     expect(response.status).toBe(HttpStatus.OK);
   });
 
   it('Success DELETE Case', async () => {
-    const response = await request(app.getHttpServer())
-      .delete('/goal/house');
+    const response = await request(app.getHttpServer()).delete('/user/2');
     expect(response.status).toBe(HttpStatus.OK);
   });
-
 });

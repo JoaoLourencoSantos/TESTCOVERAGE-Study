@@ -3,15 +3,15 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as request from 'supertest';
 
-import  { EntryModule } from '../../src/app/modules/entry.module';
+import GoalModule from '../../src/app/modules/goal.module';
 import * as ormOptions from '../../src/config/orm';
 
-describe('EntryController (e2e)', () => {
+describe('GoalController (e2e)', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [TypeOrmModule.forRoot(ormOptions), EntryModule],
+      imports: [TypeOrmModule.forRoot(ormOptions), GoalModule],
     }).compile();
 
     app = module.createNestApplication();
@@ -23,43 +23,41 @@ describe('EntryController (e2e)', () => {
   });
 
   it('Success GET Case', async () => {
-    const response = await request(app.getHttpServer())
-      .get('/entry');
+    const response = await request(app.getHttpServer()).get('/goal');
     expect(response.status).toBe(HttpStatus.OK);
   });
 
   it('Not Found GET BY ID Case', async () => {
-    const response = await request(app.getHttpServer())
-      .get('/entry/one/payment');
+    const response = await request(app.getHttpServer()).get('/goal/one/se');
     expect(response.status).toBe(HttpStatus.NOT_FOUND);
   });
 
-  it('Success GET INDICATORS Case', async () => {
-    const response = await request(app.getHttpServer())
-      .get('/entry/indicators');
-    expect(response.status).toBe(HttpStatus.OK);
-  });
-
   it('Success POST Case', async () => {
-    const entryDto: any = { name: 'payment', type: 'bill', referenceAt: new Date(), value: '50', category: 'expense' };
+    const goalDto: any = {
+      description: 'house',
+      finishDate: new Date(),
+      value: '50',
+    };
     const response = await request(app.getHttpServer())
-      .post('/entry')
-      .send(entryDto);
+      .post('/goal')
+      .send(goalDto);
     expect(response.status).toBe(HttpStatus.CREATED);
   });
 
   it('Success PUT Case', async () => {
-    const entryDto: any = { name: 'payment2', type: 'bill', referenceAt: new Date(), value: '50', category: 'expense'};
+    const goalDto: any = {
+      description: 'house',
+      finishDate: new Date(),
+      value: '50',
+    };
     const response = await request(app.getHttpServer())
-      .put('/entry')
-      .send(entryDto);
+      .put('/goal')
+      .send(goalDto);
     expect(response.status).toBe(HttpStatus.OK);
   });
 
   it('Success DELETE Case', async () => {
-    const response = await request(app.getHttpServer())
-      .delete('/entry/payment');
+    const response = await request(app.getHttpServer()).delete('/goal/house');
     expect(response.status).toBe(HttpStatus.OK);
   });
-
 });
