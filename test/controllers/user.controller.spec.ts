@@ -3,7 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as request from 'supertest';
 
-import  UserModule from '../../src/app/modules/user.module';
+import UserModule from '../../src/app/modules/user.module';
 import * as ormOptions from '../../src/config/orm';
 
 describe('EntryController (e2e)', () => {
@@ -23,19 +23,23 @@ describe('EntryController (e2e)', () => {
   });
 
   it('Success GET Case', async () => {
-    const response = await request(app.getHttpServer())
-      .get('/user');
+    const response = await request(app.getHttpServer()).get('/user');
     expect(response.status).toBe(HttpStatus.OK);
   });
-  
+
   it('Not Found GET BY ID Case', async () => {
-    const response = await request(app.getHttpServer())
-      .get('/user/one/admin');
+    const response = await request(app.getHttpServer()).get('/user/one/admin');
     expect(response.status).toBe(HttpStatus.NOT_FOUND);
   });
 
   it('Success POST Case', async () => {
-    const entryDto: any = { name: generateUser(), email: generateEmail(), dateBirth: new Date(), createdAt: new Date(), password: '12345678'};
+    const entryDto: any = {
+      name: generateUser(),
+      email: generateEmail(),
+      dateBirth: new Date(),
+      createdAt: new Date(),
+      password: '12345678',
+    };
     const response = await request(app.getHttpServer())
       .post('/user')
       .send(entryDto);
@@ -43,7 +47,12 @@ describe('EntryController (e2e)', () => {
   });
 
   it('Success PUT Case', async () => {
-    const entryDto: any = { id: 2, name: generateUser(), email: generateEmail(), dateBirth: new Date()};
+    const entryDto: any = {
+      id: 2,
+      name: generateUser(),
+      email: generateEmail(),
+      dateBirth: new Date(),
+    };
     const response = await request(app.getHttpServer())
       .put('/user')
       .send(entryDto);
@@ -51,25 +60,25 @@ describe('EntryController (e2e)', () => {
   });
 
   it('Success DELETE Case', async () => {
-    const response = await request(app.getHttpServer())
-      .delete('/user/2');
+    const response = await request(app.getHttpServer()).delete('/user/2');
     expect(response.status).toBe(HttpStatus.OK);
   });
 
   function generateUser() {
-    const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  
+    const characters =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
     let result = '';
     const charactersLength = characters.length;
-    for ( let i = 0; i < 20; i++ ) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    for (let i = 0; i < 20; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
 
     return result;
   }
 
-  function generateEmail(){
-    var email = generateUser()+'@gmail.com';
+  function generateEmail() {
+    var email = generateUser() + '@gmail.com';
     return email;
   }
 });
