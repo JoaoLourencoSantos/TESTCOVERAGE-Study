@@ -16,7 +16,7 @@ export class CategoryService {
   public constructor(
     @InjectRepository(Category)
     public readonly categoryRepository: Repository<Category>,
-  ) { }
+  ) {}
 
   async findAll({ type }): Promise<ResponseDTO> {
     try {
