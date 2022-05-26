@@ -1,4 +1,11 @@
-import { Controller, HttpStatus, Post, Request, Res, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  HttpStatus,
+  Post,
+  Request,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { Response } from 'express';
 
 import { AuthService } from './auth.service';
@@ -13,6 +20,6 @@ export class AuthController {
   async login(@Request() req, @Res() response: Response) {
     return response
       .status(HttpStatus.OK)
-      .send(this.authService.login(req.user));
+      .send(await this.authService.login(req.user));
   }
 }

@@ -5,7 +5,7 @@ export class ResponseDTO {
   error: string;
   body: any;
 
-  constructor(message: string, body = null, statusCode = 200, sucess = false) {
+  constructor(message: string, body: any, statusCode: any, sucess: any) {
     this.message = message;
     this.statusCode = statusCode;
     this.sucess = sucess;
