@@ -18,7 +18,7 @@ export class EntryService {
     @InjectRepository(Entry) public readonly entryRepository: Repository<Entry>,
     @InjectRepository(Entry)
     public readonly categoryRepository: Repository<Category>,
-  ) { }
+  ) {}
 
   async findAll({ type, month }): Promise<ResponseDTO> {
     try {
